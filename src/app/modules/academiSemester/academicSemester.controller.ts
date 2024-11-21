@@ -2,7 +2,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { catchAsync } from '../../utils/catchAsync';
 import { AcademicSemester } from './academicSemester.model';
-import { createAcademicSemesterServices } from './academicSemester.services';
+import { academicSemesterServices } from './academicSemester.services';
 
 
 const createAcademicSemester = catchAsync(async (req, res) => {
@@ -14,7 +14,7 @@ const createAcademicSemester = catchAsync(async (req, res) => {
     //     throw new Error("semester already exist")
     // }
 
-    const result = await createAcademicSemesterServices.createAcademicSemesterIntoDb(req.body)
+    const result = await academicSemesterServices.createAcademicSemesterIntoDb(req.body)
     res.status(StatusCodes.OK).json({
         success: true,
         message: "AcademicSemester is created successful",
@@ -22,6 +22,29 @@ const createAcademicSemester = catchAsync(async (req, res) => {
     })
 })
 
+const getAllAcademicSemester = catchAsync(async (req, res) => {
+    const result = await academicSemesterServices.getAllAcademicSemesterFromDb();
+    res.status(StatusCodes.OK).json({
+        success: true,
+        message: 'All academic semester retrieved successfully',
+        data: result,
+    })
+})
+
+const updateAcademicSemester = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const payload = req.body;
+    const result = await academicSemesterServices.updateAcademicSemester(id, payload)
+    console.log(result);
+    res.status(StatusCodes.OK).json({
+        success: true,
+        message: "Semester updated successfully",
+        data: result,
+    })
+})
+
 export const academicSemesterController = {
-    createAcademicSemester
+    createAcademicSemester,
+    getAllAcademicSemester,
+    updateAcademicSemester,
 }

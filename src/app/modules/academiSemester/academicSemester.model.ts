@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { TAcademicSemester } from "./academicSemester.interface";
-import { AcademicSemesterCode, AcademicSemesterName, months } from "./academicSemester.const";
+import { AcademicSemesterCode, academicSemesterCodeMapper, AcademicSemesterName, months } from "./academicSemester.const";
 
 
 // Define the Mongoose Schema
@@ -55,11 +55,6 @@ AcademicSemesterSchema.pre('save', async function (next) {
 AcademicSemesterSchema.pre('save', async function (next) {
     const academicSemester = this;  //-->this means AcademicSemesterSchema, jeta req.body te jabe
 
-    const academicSemesterCodeMapper = {
-        Autumn: '01',
-        Summer: '02',
-        Fall: '03'
-    }
     if (academicSemesterCodeMapper[this.name] !== this.code) {
         throw new Error('Invalid semester code')
     }
