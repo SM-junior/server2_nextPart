@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/create-academic-semester', validateRequest(academicSemesterValidation.academicSemesterValidationSchema), academicSemesterController.createAcademicSemester);
 router.get('/', academicSemesterController.getAllAcademicSemester);
+router.get('/:id', academicSemesterController.getSingleAcademicSemester)
 router.patch('/:id', validateRequest(academicSemesterValidation.academicSemesterValidationSchema), academicSemesterController.updateAcademicSemester)
 
 export const academicSemesterRouter = router;
