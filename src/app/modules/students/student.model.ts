@@ -161,6 +161,10 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     localGuardian: {
         type: localGuardianSchema
     },
+    admissionSemester: {
+        type: Schema.Types.ObjectId,
+        ref: "AcademicSemester"  //academicSemester ar modle j name ace sei nam dite hobe. 'AcademicSemester' name a cilo
+    },
     profileImage: {
         type: String,
     },

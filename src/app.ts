@@ -78,4 +78,56 @@ https://www.porntrex.com/video/910828/melanie-rios-the-babysitter-volume-04-scen
 
 https://xhamster.desi/videos/pure-taboo-stepmom-caught-teen-with-step-uncle-joins-in-xhMQz9r
 
+
+kali linux command.............
+ls-->list-->>show all folder and documents from current working directory
+ls -a -->
+ls -l -->show all file and directories in current directory
+ls -la -->show all hidden files
+la -lh -->
+ls -l -h OR la -lh -->show file sizes
+pwd -->
+cd -->
+cd - -->
+cd .. -->
+nano -->
+cat -->
+cat shahin.txt -->
+cat shahin.txt -n -->
+cat shahin.txt dummy.txt -->
+cat Desktop/dummy.txt
+
+mkdir rahim -->create rahim folder
+touch rahim.txt -->create a file 
+cat>>rahim.txt -->edit rahim.txt
+cat rahim.txt -->open rahim.txt file
+
+
+cat>mim.txt
+cat>>mim.txt
+cat mim.txt jim.txt>>merge.txt
+28.53 
+
+grep -n 'cat' rahim.txt -->find 'cat' word in rahim.txt file
+grep -n 'cat' Desktop/rahim/rahim.txt -->find 'cat' word in rahim.txt file
+
+wc rahim.txt -->word count in rahim.txt
+wc -w rahim.txt -->only count word in rahim.txt
+wc -c rahim.txt -->only character count in rahim.txt
+wc -l rahim.txt -->only line number count in rahim.txt
+
+> vs >>
+date>date.txt -->redirect date data(delete previous data) into date.txt file
+date>>date.txt -->redirect date data(with previous data) into date.txt file
+
+cp -->copy
+cp -r file_want_to_copy file_where_to_copy
+cp -r dummy.txt mim.txt /home/kali/Downloads
+
+rm -->remove a file or folder
+rm /home/kali/Desktop/mim.txt -->mim.txt will deleted
+rm -f mim.txt --> force to remove mim.txt
+
+sudo -->super User do
+
 */
