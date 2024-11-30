@@ -198,14 +198,6 @@ studentSchema.pre('findOne', function (next) {
     next()
 })
 
-studentSchema.pre("findOneAndUpdate", async function (next) {
-    const query = this.getQuery();
-    const isExistingStudent = await this.model.findOne(query);
-    if (!isExistingStudent) {
-        throw new Error('This student is not exist')
-    }
-    next();
-})
 
 //ai modelta shudhu inbuilt static method ar belay lagbe
 // export const Student = model<TStudent>('Student', studentSchema);
