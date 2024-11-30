@@ -1,7 +1,6 @@
 import { academicDepartmentServices } from "./academicDepartment.service";
 import { StatusCodes } from 'http-status-codes';
 import { catchAsync } from "../../utils/catchAsync";
-import { AcademicDepartment } from "./academicDepartment.model";
 
 const createAcademicDepartment = catchAsync(async (req, res) => {
     const payload = req.body;
@@ -24,7 +23,7 @@ const getSingleAcademicDepartment = catchAsync(async (req, res) => {
 })
 
 const getAllAcademicDepartment = catchAsync(async (req, res) => {
-    const result = await academicDepartmentServices.getAllStudentsFromDb();
+    const result = await academicDepartmentServices.getAllAcademicDepartmentFromDb();
     res.status(StatusCodes.OK).json({
         success: true,
         message: "All academic departments are retrieved successfully",

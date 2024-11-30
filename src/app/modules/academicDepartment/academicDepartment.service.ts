@@ -7,12 +7,12 @@ const createAcademicDepartmentIntoDb = async (payload: TAcademicDepartment) => {
 }
 
 const getSingleAcademicDepartmentFromDb = async (id: string) => {
-    const result = await AcademicDepartment.findById(id);
+    const result = await AcademicDepartment.findById(id).populate('academicFaculty');
     return result;
 }
 
-const getAllStudentsFromDb = async () => {
-    const result = await AcademicDepartment.find();
+const getAllAcademicDepartmentFromDb = async () => {
+    const result = await AcademicDepartment.find().populate('academicFaculty');
     return result;
 }
 
@@ -27,6 +27,6 @@ const updateAcademicDepartmentIntoDb = async (id: string, payload: Partial<TAcad
 export const academicDepartmentServices = {
     createAcademicDepartmentIntoDb,
     getSingleAcademicDepartmentFromDb,
-    getAllStudentsFromDb,
+    getAllAcademicDepartmentFromDb,
     updateAcademicDepartmentIntoDb
 }

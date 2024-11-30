@@ -9,6 +9,7 @@ import {
 } from './student.interface';
 import config from '../../config';
 import bcrypt from 'bcrypt';
+import { Student } from './student.model';
 
 const userNameSchema = new Schema<TUserName>({
     firstName: {
@@ -165,6 +166,10 @@ const studentSchema = new Schema<TStudent, StudentModel>({
         type: Schema.Types.ObjectId,
         ref: "AcademicSemester"  //academicSemester ar modle j name ace sei nam dite hobe. 'AcademicSemester' name a cilo
     },
+    academicDepartment: {
+        type: Schema.Types.ObjectId,
+        ref: "AcademicDepartment"  //academicSemester ar modle j name ace sei nam dite hobe. 'AcademicSemester' name a cilo
+    },
     profileImage: {
         type: String,
     },
@@ -193,6 +198,14 @@ studentSchema.pre('findOne', function (next) {
     next()
 })
 
+studentSchema.pre("findOneAndUpdate", async function (next) {
+    const query = this.getQuery();
+    const isExistingStudent = await this.model.findOne(query);
+    if (!isExistingStudent) {
+        throw new Error('This student is not exist')
+    }
+    next();
+})
 
 //ai modelta shudhu inbuilt static method ar belay lagbe
 // export const Student = model<TStudent>('Student', studentSchema);
