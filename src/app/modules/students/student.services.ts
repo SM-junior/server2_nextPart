@@ -1,10 +1,20 @@
 import mongoose from 'mongoose';
 import { User } from '../user/user.model';
+import { searchFields } from './student.const';
 import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
-const getAllStudentFromDb = async () => {
-    const result = await Student.find().populate('admissionSemester').populate({
+const getAllStudentFromDb = async (searchTerm: string) => {
+
+    const query = searchTerm
+        ? {
+            $or: searchFields.map((field) => ({
+                [field]: { $regex: searchTerm, $options: 'i' }
+            }))
+        }
+        : {};
+
+    const result = await Student.find(query).populate('admissionSemester').populate({
         path: 'academicDepartment',
         populate: {
             path: "academicFaculty",

@@ -3,7 +3,10 @@ import { catchAsync } from '../../utils/catchAsync';
 import { StatusCodes } from 'http-status-codes';
 
 const getAllStudent = catchAsync(async (req, res) => {
-    const result = await StudentServices.getAllStudentFromDb();
+    const { searchTerm } = req.query;
+    console.log(searchTerm);
+
+    const result = await StudentServices.getAllStudentFromDb(searchTerm);
     res.status(StatusCodes.OK).json({
         success: true,
         message: 'Students are retrieved successfully',
