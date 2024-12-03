@@ -9,7 +9,6 @@ import {
 } from './student.interface';
 import config from '../../config';
 import bcrypt from 'bcrypt';
-import { Student } from './student.model';
 
 const userNameSchema = new Schema<TUserName>({
     firstName: {
@@ -183,8 +182,8 @@ studentSchema.set('toJSON', { virtuals: true });
 
 //................mongoose Virtual...............
 studentSchema.virtual('fullName').get(function () {
-    return (`${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`)
-})
+    return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
+});
 
 
 //............mongoose middleware(query middleware)..................

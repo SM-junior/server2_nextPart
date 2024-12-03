@@ -1,8 +1,15 @@
-export const searchFields = [
+export const searchableFields = [
     'name.firstName',
     'name.lastName',
     'name.middleName',
     'email',
+    "gender",
     'contactNo',
-    "gender"
+    'emergencyContactNo',
+    'bloodGroup',
+    'guardian.fatherName',
+    'guardian.motherName',
+    'localGuardian.name',
+    'presentAddress',
+    'permanentAddress',
 ];
