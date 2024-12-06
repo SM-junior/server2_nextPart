@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', facultyController.getAllFaculty);
 router.get('/:id', facultyController.getSingleFaculty);
-router.get('/:id', facultyController.deleteFaculty);
+router.delete('/:id', facultyController.deleteFaculty);
 
 
 export const facultyRouter = router;

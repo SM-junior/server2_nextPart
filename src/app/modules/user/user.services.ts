@@ -3,12 +3,14 @@ import config from "../../config";
 import { AcademicDepartment } from "../academicDepartment/academicDepartment.model";
 import { AcademicSemester } from "../academicSemester/academicSemester.model";
 import { TFaculty } from "../faculty/faculty.interface";
+import { TAdmin } from "../admin/admin.interface";
 import { Faculty } from "../faculty/faculty.model";
 import { TStudent } from "../students/student.interface";
 import { Student } from "../students/student.model";
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
-import { generatedFacultyId, generatedStudentId } from "./user.utils";
+import { generatedAdminId, generatedFacultyId, generatedStudentId } from "./user.utils";
+import { Admin } from "../admin/admin.model";
 
 const createStudentToDb = async (password: string, payload: TStudent) => {
     //create user
@@ -125,8 +127,46 @@ const createFacultyIntoDb = async (password: string, payload: TFaculty) => {
     }
 }
 
+const createAdminIntoDb = async (password: string, payload: TAdmin) => {
+    const userData: Partial<TUser> = {};
+    userData.password = password || config.default_password as string;
+    userData.role = 'admin';
+
+    const session = await mongoose.startSession();
+
+    try {
+        session.startTransaction();
+
+        userData.id = await generatedAdminId();
+
+        const newUser = await User.create([userData], { session });
+        if (!newUser.length) {
+            throw new Error("Fail to create newUser")
+        }
+
+        payload.id = newUser[0].id;
+        payload.user = newUser[0]._id;
+
+        const newAdmin = await Admin.create([payload], { session });
+        if (!newAdmin.length) {
+            throw new Error("Fail to create Admin")
+        }
+
+        await session.commitTransaction();
+        await session.endSession();
+
+        return newAdmin;
+
+    } catch (error: any) {
+        await session.abortTransaction();
+        await session.endSession();
+        throw new Error(error);
+    }
+
+}
 
 export const userServices = {
     createStudentToDb,
     createFacultyIntoDb,
+    createAdminIntoDb
 }

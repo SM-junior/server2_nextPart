@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
-import { BloodGroup, Gender } from "./faculty.const";
-import { TFaculty, TUserName } from "./faculty.interface";
+import { BloodGroup, Gender } from "../faculty/faculty.const";
+
+import { TAdmin, TUserName } from "./admin.interface";
 
 const userNameSchema = new Schema<TUserName>({
     firstName: {
@@ -20,7 +21,7 @@ const userNameSchema = new Schema<TUserName>({
         maxlength: [20, 'Name can not be more than 20 characters'],
     },
 });
-const facultySchema = new Schema<TFaculty>(
+export const adminSchema = new Schema<TAdmin>(
     {
         id: {
             type: String,
@@ -76,11 +77,6 @@ const facultySchema = new Schema<TFaculty>(
             required: [true, 'Permanent address is required'],
         },
         profileImg: { type: String },
-        academicDepartment: {
-            type: Schema.Types.ObjectId,
-            required: [true, 'User id is required'],
-            ref: 'User',
-        },
         isDeleted: {
             type: Boolean,
             default: false,
@@ -93,28 +89,28 @@ const facultySchema = new Schema<TFaculty>(
     },
 );
 
-facultySchema.pre('save', async function (next) {
-    const existingFaculty = await Faculty.findOne({
+adminSchema.pre('save', async function (next) {
+    const existingAdmin = await Admin.findOne({
         email: this.email
     })
-    if (existingFaculty) {
-        throw new Error('This faculty is already exist !')
+    if (existingAdmin) {
+        throw new Error('This admin is already exist !')
     }
     next()
 })
-
-facultySchema.pre('find', async function (next) {
+adminSchema.pre('find', async function (next) {
     this.find({ isDeleted: { $ne: true } })
     next()
 })
-facultySchema.pre('findOne', async function (next) {
+adminSchema.pre('findOne', async function (next) {
     this.find({ isDeleted: { $ne: true } })
     next()
 })
 
-facultySchema.pre('aggregate', function (next) {
+adminSchema.pre('aggregate', function (next) {
     this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
     next();
 });
 
-export const Faculty = model<TFaculty>("Faculty", facultySchema);
+
+export const Admin = model<TAdmin>("Admin", adminSchema);

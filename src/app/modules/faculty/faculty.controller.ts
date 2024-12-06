@@ -26,10 +26,10 @@ const deleteFaculty = catchAsync(async (req, res) => {
     const result = await facultyServices.deleteFacultyFromDb(id);
     res.status(StatusCodes.OK).json({
         success: true,
-        message: 'Faculty id deleted successfully',
+        message: 'Faculty is deleted successfully',
         data: result,
     });
-})
+});
 
 export const facultyController = {
     getAllFaculty,
