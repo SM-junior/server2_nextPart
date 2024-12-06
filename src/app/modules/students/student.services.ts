@@ -6,6 +6,8 @@ import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
 const getAllStudentFromDb = async (query: Record<string, unknown>) => {
+
+    //...........raw searching, filtering, pagination, sorting, fields limiting...........
     //here query={searchTerm:'mubarak}
     // console.log('base query', query);
 
@@ -73,6 +75,7 @@ const getAllStudentFromDb = async (query: Record<string, unknown>) => {
     // return fieldsQuery;
 
 
+    //.......searching, filtering, pagination, sorting, fields limiting with query builder...........
     const studentQuery = new QueryBuilder(
         Student.find()
             .populate('admissionSemester')
