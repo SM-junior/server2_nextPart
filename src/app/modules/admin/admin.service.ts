@@ -1,9 +1,21 @@
 import mongoose from "mongoose";
+import QueryBuilder from "../../builder/QueryBuilder";
 import { User } from "../user/user.model";
+import { searchableFields } from "./admin.const";
 import { Admin } from "./admin.model";
 
-const getAllAdminFromDb = async () => {
-    const result = await Admin.find();
+const getAllAdminFromDb = async (query: Record<string, unknown>) => {
+
+    const AdminQuery = new QueryBuilder(
+        Admin.find(), query
+    )
+        .search(searchableFields)
+        .filter()
+        .sort()
+        .paginate()
+        .fields();
+
+    const result = await AdminQuery.modelQuery;
     return result;
 }
 
@@ -21,7 +33,10 @@ const deleteAdminFromDb = async (id: string) => {
         if (!deletedAdmin) {
             throw new Error('Fail to delete Admin')
         }
+
+        //find user_id from deletedAdmin
         const userId = deletedAdmin.user;
+
         const deletedUser = await User.findByIdAndUpdate(userId, { isDeleted: true }, { new: true, session });
         if (!deletedUser) {
             throw new Error('Fail to delete User')
