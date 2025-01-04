@@ -3,7 +3,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { adminServices } from "./admin.service";
 
 const getAllAdmin = catchAsync(async (req, res) => {
-    const result = await adminServices.getAllAdminFromDb();
+    const result = await adminServices.getAllAdminFromDb(req.query);
     res.status(StatusCodes.OK).json({
         success: true,
         message: 'All admins are retrieved successfully',

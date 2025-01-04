@@ -3,7 +3,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { facultyServices } from "./faculty.service";
 
 const getAllFaculty = catchAsync(async (req, res) => {
-    const result = await facultyServices.getAllFacultyFromDb();
+    const result = await facultyServices.getAllFacultyFromDb(req.query);
     res.status(StatusCodes.OK).json({
         success: true,
         message: 'All Faculties are retrieved successfully',
